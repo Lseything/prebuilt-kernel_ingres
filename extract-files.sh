@@ -12,7 +12,7 @@ DUMP=
 MY_DIR="${BASH_SOURCE%/*}"
 SRC_ROOT="${MY_DIR}/../../.."
 TMP_DIR=$(mktemp -d)
-EXTRACT_KERNEL=true
+EXTRACT_KERNEL=false
 declare -a MODULE_FOLDERS=("vendor_ramdisk" "vendor_dlkm")
 
 while [ "${#}" -gt 0 ]; do
@@ -47,8 +47,8 @@ if ${EXTRACT_KERNEL}; then
     ${SRC_ROOT}/system/tools/mkbootimg/unpack_bootimg.py \
         --boot_img "${DUMP}/boot.img" \
         --out "${TMP_DIR}/boot.out" > /dev/null
-    cp -f "${TMP_DIR}/boot.out/kernel" ${MY_DIR}/Image
-    echo "  - Image"
+    cp -f "${TMP_DIR}/boot.out/kernel" ${MY_DIR}/kernel
+    echo "  - kernel"
 fi
 
 ### DTBS
